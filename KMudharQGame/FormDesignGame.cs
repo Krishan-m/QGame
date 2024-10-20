@@ -13,6 +13,7 @@ namespace KMudharQGame
 	public partial class FormDesignGame : Form
 	{
 		private Bitmap? SelectedImage { get; set; }
+		private object? SelectedImageTag { get; set; }
 		private bool gridGenerated = false;
 
 		enum Pictures
@@ -40,7 +41,7 @@ namespace KMudharQGame
 					PictureBox pictureBox = new PictureBox();
 					pictureBox.Name = $"pb{i}{j}";
 					pictureBox.Size = new Size(100, 100);
-					pictureBox.Location = new Point(100 * i, 100 * j);
+					pictureBox.Location = new Point(100 * j, 100 * i);
 					pictureBox.BorderStyle = BorderStyle.FixedSingle;
 					pictureBox.Click += SetImage;
 					pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -55,12 +56,20 @@ namespace KMudharQGame
 		{
 			PictureBox selectedBox = (PictureBox)sender;
 			selectedBox.Image = SelectedImage;
+			selectedBox.Tag = SelectedImageTag;
+			lblMessage.Text = $"{selectedBox.Tag}";
 		}
 
-		private void SaveGame()
+		private void SaveGame(object? sender = null, EventArgs? e = null)
 		{
 			MessageBox.Show("Game saved", "QGame");
-			//for ()
+			using (StreamWriter writer = new StreamWriter("../../../Resources/design.txt", append: false))
+			{
+				foreach (PictureBox pb in grpbxGrid.Controls)
+				{
+					writer.WriteLine($"{(int)(pb.Tag ?? Pictures.Null)}");
+				}
+			}
 		}
 
 		private void btnGenerate_Click(object sender, EventArgs e)
@@ -93,11 +102,13 @@ namespace KMudharQGame
 		{
 			PictureBox selectedBox = (PictureBox)sender;
 			SelectedImage = (Bitmap)selectedBox.Image;
+			SelectedImageTag = selectedBox.Tag;
 		}
 
 		private void Close(object sender, EventArgs e)
 		{
-			if (gridGenerated) {
+			if (gridGenerated)
+			{
 				DialogResult result = MessageBox.Show("Do you want to save this design?", "QGame Close", MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes) SaveGame();
 			}
@@ -105,3 +116,4 @@ namespace KMudharQGame
 		}
 	}
 }
+

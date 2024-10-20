@@ -81,6 +81,7 @@
 			saveToolStripMenuItem.Name = "saveToolStripMenuItem";
 			saveToolStripMenuItem.Size = new Size(224, 26);
 			saveToolStripMenuItem.Text = "Save";
+			saveToolStripMenuItem.Click += SaveGame;
 			// 
 			// closeToolStripMenuItem
 			// 
@@ -178,6 +179,7 @@
 			pbBoxGreen.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbBoxGreen.TabIndex = 6;
 			pbBoxGreen.TabStop = false;
+			pbBoxGreen.Tag = Pictures.BoxGreen;
 			pbBoxGreen.Click += SelectImage;
 			// 
 			// pbBoxRed
@@ -189,6 +191,7 @@
 			pbBoxRed.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbBoxRed.TabIndex = 7;
 			pbBoxRed.TabStop = false;
+			pbBoxRed.Tag = Pictures.BoxRed;
 			pbBoxRed.Click += SelectImage;
 			// 
 			// pbDoorRed
@@ -200,6 +203,7 @@
 			pbDoorRed.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbDoorRed.TabIndex = 5;
 			pbDoorRed.TabStop = false;
+			pbDoorRed.Tag = Pictures.DoorRed;
 			pbDoorRed.Click += SelectImage;
 			// 
 			// pbWall
@@ -211,6 +215,7 @@
 			pbWall.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbWall.TabIndex = 4;
 			pbWall.TabStop = false;
+			pbWall.Tag = Pictures.Wall;
 			pbWall.Click += SelectImage;
 			// 
 			// pbNone
@@ -221,6 +226,7 @@
 			pbNone.Size = new Size(67, 67);
 			pbNone.TabIndex = 3;
 			pbNone.TabStop = false;
+			pbNone.Tag = Pictures.Null;
 			pbNone.Click += SelectImage;
 			// 
 			// pbDoorGreen
@@ -232,6 +238,7 @@
 			pbDoorGreen.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbDoorGreen.TabIndex = 4;
 			pbDoorGreen.TabStop = false;
+			pbDoorGreen.Tag = Pictures.DoorGreen;
 			pbDoorGreen.Click += SelectImage;
 			// 
 			// lblMessage
