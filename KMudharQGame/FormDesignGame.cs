@@ -62,14 +62,39 @@ namespace KMudharQGame
 
 		private void SaveGame(object? sender = null, EventArgs? e = null)
 		{
-			MessageBox.Show("Game saved", "QGame");
-			using (StreamWriter writer = new StreamWriter("../../../Resources/design.txt", append: false))
+			int totalWalls = 0;
+			int totalDoors = 0;
+			int totalBoxes = 0;
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "Text Documents (*.txt)|*.txt|All files (*.*)|*.*";
+			saveFileDialog.Title = "Save QGame design";
+			saveFileDialog.ShowDialog();
+			using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName, append: false))
 			{
 				foreach (PictureBox pb in grpbxGrid.Controls)
 				{
 					writer.WriteLine($"{(int)(pb.Tag ?? Pictures.Null)}");
+					switch (pb.Tag)
+					{
+						case ((object)Pictures.Wall):
+							totalWalls++;
+							break;
+						case ((object)Pictures.DoorGreen):
+						case ((object)Pictures.DoorRed):
+							totalDoors++;
+							break;
+						case ((object)Pictures.BoxGreen):
+						case ((object)Pictures.BoxRed):
+							totalBoxes++;
+							break;
+					}
 				}
 			}
+			MessageBox.Show($"File saved successfully:\n" +
+							$"Total number of Walls: {totalWalls}\n" +
+							$"Total number of Doors: {totalDoors}\n" +
+							$"Total number of Boxes: {totalBoxes}", "QGame");
+
 		}
 
 		private void btnGenerate_Click(object sender, EventArgs e)
@@ -97,7 +122,6 @@ namespace KMudharQGame
 				MessageBox.Show(ex.Message, "QGame Errors");
 			}
 		}
-
 		private void SelectImage(object sender, EventArgs e)
 		{
 			PictureBox selectedBox = (PictureBox)sender;
